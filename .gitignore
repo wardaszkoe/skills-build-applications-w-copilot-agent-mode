@@ -1,3 +1,15 @@
+# Ignore backend virtual environment
+/octofit-tracker/backend/venv/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# Editor directories
+.vscode/
+
+# Node
+node_modules/
 .DS_Store
 
 # Virtual Environment
