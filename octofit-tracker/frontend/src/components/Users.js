@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-const Activities = () => {
-  const [activities, setActivities] = useState([]);
-  const endpoint = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/activities/`;
+const Users = () => {
+  const [users, setUsers] = useState([]);
+  const endpoint = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/`;
 
   useEffect(() => {
     console.log('Fetching from:', endpoint);
@@ -10,37 +10,37 @@ const Activities = () => {
       .then(res => res.json())
       .then(data => {
         const results = data.results || data;
-        setActivities(results);
-        console.log('Fetched activities:', results);
+        setUsers(results);
+        console.log('Fetched users:', results);
       })
-      .catch(err => console.error('Error fetching activities:', err));
+      .catch(err => console.error('Error fetching users:', err));
   }, [endpoint]);
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-4 display-5">Activities</h1>
+      <h1 className="mb-4 display-5">Users</h1>
       <div className="card">
         <div className="card-body">
           <div className="table-responsive">
             <table className="table table-striped table-hover">
               <thead className="table-dark">
                 <tr>
-                  {activities[0] && Object.keys(activities[0]).map((key) => (
+                  {users[0] && Object.keys(users[0]).map((key) => (
                     <th key={key}>{key}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {activities.map((activity, idx) => (
-                  <tr key={activity.id || idx}>
-                    {Object.values(activity).map((val, i) => (
+                {users.map((user, idx) => (
+                  <tr key={user.id || idx}>
+                    {Object.values(user).map((val, i) => (
                       <td key={i}>{val != null ? val.toString() : ''}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
-            {activities.length === 0 && <div className="text-center">No activities found.</div>}
+            {users.length === 0 && <div className="text-center">No users found.</div>}
           </div>
         </div>
       </div>
@@ -48,4 +48,4 @@ const Activities = () => {
   );
 };
 
-export default Activities;
+export default Users;

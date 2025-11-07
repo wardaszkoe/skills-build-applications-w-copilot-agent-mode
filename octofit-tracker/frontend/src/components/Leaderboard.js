@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-const Activities = () => {
-  const [activities, setActivities] = useState([]);
-  const endpoint = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/activities/`;
+const Leaderboard = () => {
+  const [leaderboard, setLeaderboard] = useState([]);
+  const endpoint = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`;
 
   useEffect(() => {
     console.log('Fetching from:', endpoint);
@@ -10,37 +10,37 @@ const Activities = () => {
       .then(res => res.json())
       .then(data => {
         const results = data.results || data;
-        setActivities(results);
-        console.log('Fetched activities:', results);
+        setLeaderboard(results);
+        console.log('Fetched leaderboard:', results);
       })
-      .catch(err => console.error('Error fetching activities:', err));
+      .catch(err => console.error('Error fetching leaderboard:', err));
   }, [endpoint]);
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-4 display-5">Activities</h1>
+      <h1 className="mb-4 display-5">Leaderboard</h1>
       <div className="card">
         <div className="card-body">
           <div className="table-responsive">
             <table className="table table-striped table-hover">
               <thead className="table-dark">
                 <tr>
-                  {activities[0] && Object.keys(activities[0]).map((key) => (
+                  {leaderboard[0] && Object.keys(leaderboard[0]).map((key) => (
                     <th key={key}>{key}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {activities.map((activity, idx) => (
-                  <tr key={activity.id || idx}>
-                    {Object.values(activity).map((val, i) => (
+                {leaderboard.map((entry, idx) => (
+                  <tr key={entry.id || idx}>
+                    {Object.values(entry).map((val, i) => (
                       <td key={i}>{val != null ? val.toString() : ''}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
-            {activities.length === 0 && <div className="text-center">No activities found.</div>}
+            {leaderboard.length === 0 && <div className="text-center">No leaderboard data found.</div>}
           </div>
         </div>
       </div>
@@ -48,4 +48,4 @@ const Activities = () => {
   );
 };
 
-export default Activities;
+export default Leaderboard;
